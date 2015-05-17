@@ -22,6 +22,17 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Role</label>
+							<div class="col-md-6">
+								<select name="role_id" class="form-control">
+								@foreach (\App\Role::all() as $role)
+									<option value="{{ $role->id }}"@if($role->id == 1) disabled @endif>{{ $role->name }}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-md-4 control-label">Name</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -39,13 +50,6 @@
 							<label class="col-md-4 control-label">Password</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
 							</div>
 						</div>
 

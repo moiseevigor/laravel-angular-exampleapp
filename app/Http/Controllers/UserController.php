@@ -1,5 +1,15 @@
 <?php namespace App\Http\Controllers;
 
+use Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Role;
+use App\User;
+
 class UserController extends Controller {
 
 	/*
@@ -27,7 +37,7 @@ class UserController extends Controller {
 	public function index()
 	{
 		return view('user.index', array(
-			'users' => \app\User::all()
+			'users' => User::all()
 			));
 	}
 
@@ -48,8 +58,10 @@ class UserController extends Controller {
 	 */
 	public function edit($userId)
 	{
+		$user = User::findOrFail($userId);
+
 		return view('user.edit', array(
-			'user' => \app\User::findOrFail($userId)
+			'user' => $user
 			));
 	}
 
@@ -58,21 +70,30 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function update($userId)
+	public function update($userId, UpdateUserRequest $request)
 	{
-		return view('user.update', array(
-			'user' => \app\User::findOrFail($userId)
-			));
+		$userData = Request::all();
+
+		$user = User::findOrFail($userId);
+		$user->role_id = $userData['role_id'];
+		$user->name = $userData['name'];
+		$user->email = $userData['email'];
+		$user->password = Hash::make($userData['password']);
+		$user->save();
+
+		return redirect(action('UserController@index'));
 	}
 
 	/**
-	 * Store User data
+	 * Store New User data
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StoreUserRequest $request)
 	{
-		return view('user.create');
+		$user = new User(Request::all());
+ 		$user->save();
+		return redirect(action('UserController@index'));
 	}
 
 	/**
@@ -80,8 +101,9 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function destoy($userId)
+	public function destroy($userId)
 	{
-		return view('user.create');
+		$user = User::findOrFail($userId);
+		$user->delete();
 	}
 }

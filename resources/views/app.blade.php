@@ -28,17 +28,16 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Cool App</a>
+				<a class="navbar-brand" href="{{ url('/') }}">Cool App</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
-				</ul>
-
+				@if (!Auth::guest())
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/user') }}">Users</a></li>
+					<li><a href="{{ url('/form') }}">Form</a></li>
 				</ul>
+				@endif
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
@@ -62,5 +61,8 @@
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	@yield('js')
+
 </body>
 </html>

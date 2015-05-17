@@ -23,16 +23,27 @@
 						<input type="hidden" name="userId" value="{{ $user->id }}">
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Role</label>
+							<div class="col-md-6">
+								<select name="role_id" class="form-control">
+								@foreach (\App\Role::all() as $role)
+									<option value="{{ $role->id }}" @if($user->role_id == $role->id)selected @endif @if($role->id == 1) disabled @endif>{{ $role->name }}</option>
+								@endforeach
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<label class="col-md-4 control-label">Name</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ $user->name }}">
+								<input type="text" class="form-control" name="name" value="@if(old('name') == ''){{ $user->name }}@else {{ old('name') }}@endif">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ $user->email }}">
+								<input type="email" class="form-control" name="email" value="@if(old('email') == ''){{ $user->email }}@else{{ old('email') }}@endif">
 							</div>
 						</div>
 
