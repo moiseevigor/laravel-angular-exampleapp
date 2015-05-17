@@ -3,6 +3,7 @@
 		<title>Laravel</title>
 		
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+		<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 		<style>
 			body {
@@ -40,8 +41,11 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Laravel 5</div>
+				<div class="title">Cool App</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
+				<div style="margin: 40px;">
+					<button type="submit" class="btn btn-primary" onclick="location='{{ url('/auth/login') }}'">Get me in!</button>
+				</div>
 			</div>
 		</div>
 	</body>

@@ -15,6 +15,13 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('user', 'UserController@index');
+Route::get('user/create', 'UserController@create');
+Route::post('user/store', 'UserController@store');
+Route::post('user/{userId}', 'UserController@update');
+Route::get('user/{userId}/edit', 'UserController@edit');
+Route::delete('user/{userId}', 'UserController@destroy');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
