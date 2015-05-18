@@ -22,6 +22,9 @@ Route::post('user/{userId}', 'UserController@update');
 Route::get('user/{userId}/edit', 'UserController@edit');
 Route::delete('user/{userId}', 'UserController@destroy');
 
+Route::get('form', 'UserFormController@index');
+
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

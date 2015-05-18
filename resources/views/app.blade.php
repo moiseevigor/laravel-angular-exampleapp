@@ -11,6 +11,9 @@
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
+	@yield('css')
+
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -35,7 +38,7 @@
 				@if (!Auth::guest())
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/user') }}">Users</a></li>
-					<li><a href="{{ url('/form') }}">Form</a></li>
+					<li><a href="{{ url('/form') }}">Forms</a></li>
 				</ul>
 				@endif
 
