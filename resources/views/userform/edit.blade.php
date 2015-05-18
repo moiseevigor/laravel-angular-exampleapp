@@ -30,7 +30,7 @@
 
 			fb = new Formbuilder({
 		        selector: '.fb-main',
-		        bootstrapData: {!! $form->form_json !!}
+		        bootstrapData: @if($form->form_json == '') [] @else {!! $form->form_json !!} @endif
 		      });
 
 		      fb.on('save', function(payload){
