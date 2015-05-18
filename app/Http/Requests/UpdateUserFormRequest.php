@@ -11,7 +11,7 @@ class UpdateUserFormRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +22,7 @@ class UpdateUserFormRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
+			'form_json' => 'required'
 		];
 	}
 

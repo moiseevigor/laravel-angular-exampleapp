@@ -91,9 +91,14 @@ class UserFormController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($formId, UpdateuserFormRequest $request)
 	{
-		//
+		$userFormData = Request::all();
+		$form_json = json_decode($userFormData['form_json'], true);
+
+		$userForm = UserForm::findOrFail($formId);
+		$userForm->form_json = json_encode($form_json['fields']);
+		$userForm->save();
 	}
 
 	/**
