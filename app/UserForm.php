@@ -2,26 +2,25 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model {
+class UserForm extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'roles';
+	protected $table = 'user_forms';
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name'];
+	protected $fillable = ['user_id', 'name'];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User');
     }
+
 }
-
-

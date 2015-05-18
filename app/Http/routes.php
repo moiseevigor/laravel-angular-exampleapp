@@ -23,6 +23,10 @@ Route::get('user/{userId}/edit', 'UserController@edit');
 Route::delete('user/{userId}', 'UserController@destroy');
 
 Route::get('form', 'UserFormController@index');
+Route::get('form/create', 'UserFormController@create');
+Route::post('form/store', 'UserFormController@store');
+Route::get('form/{formId}/edit', 'UserFormController@edit');
+Route::delete('form/{formId}', 'UserFormController@destroy');
 
 
 Route::controllers([

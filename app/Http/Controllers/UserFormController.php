@@ -1,9 +1,16 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
+use Request;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUserFormRequest;
+use App\Http\Requests\StoreUserFormRequest;
+use App\Role;
+use App\User;
+use App\UserForm;
 
 class UserFormController extends Controller {
 
@@ -24,7 +31,9 @@ class UserFormController extends Controller {
 	 */
 	public function index()
 	{
-		return view('userform.index');
+		return view('userform.index', array(
+			'user_form' => UserForm::all()
+			));
 	}
 
 	/**
@@ -34,7 +43,7 @@ class UserFormController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('userform.create');
 	}
 
 	/**
@@ -42,9 +51,14 @@ class UserFormController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(StoreUserFormRequest $requests)
 	{
-		//
+		$userFormData = Request::all();
+		$userFormData['user_id'] = Auth::user()->id;
+
+		$user_form = new UserForm($userFormData);
+ 		$user_form->save();
+		return redirect(action('UserFormController@edit', ['formId' => $user_form->id]));
 	}
 
 	/**
@@ -64,9 +78,11 @@ class UserFormController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($formId)
 	{
-		//
+		return view('userform.edit', [
+			'form' => UserForm::findOrFail($formId)
+			]);
 	}
 
 	/**
@@ -86,9 +102,10 @@ class UserFormController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($formId)
 	{
-		//
+		$user_form = UserForm::findOrFail($formId);
+		$user_form->delete();
 	}
 
 }

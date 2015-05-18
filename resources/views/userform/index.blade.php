@@ -1,68 +1,77 @@
 @extends('app')
 
-@section('css')
-	<link href="{{ asset('/css/vendor.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/formbuilder.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
-	<div class='fb-main'></div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div style="margin-bottom: 20px;">
+				<button type="button" class="btn btn-success" onclick="location='{{ action('UserFormController@create') }}'">Create form</button>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Forms list</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped">
+						@forelse ($user_form as $form)
+							<tr>
+								<td>{{ $form->name }}</td>
+								<td>{{ $form->user->name }}</td>
+								<td width="200" align="center">
+									<button type="button" class="btn btn-primary" onclick="location='{{ action('UserFormController@edit', ['formId' => $form->id]) }}'">Edit</button>
+									<button type="button" class="btn btn-danger remove-form" data-user-form-id="{{ $form->id }}" data-action-url="{{ action('UserFormController@destroy', ['formId' => $form->id]) }}">Remove</button>
+								</td>
+							</tr>
+						@empty No form registered yet!
+						@endforelse
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to remove form?&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Remove</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @endsection
 
 @section('js')
-	<script src="{{ asset('/js/vendor.js') }}"></script>
-	<script src="{{ asset('/js/formbuilder.js') }}"></script>
+<script>
+	$(document).ready(function() {
+    	$(".remove-form").on('click', function() {
+    		var formId = $(this).data('formId'),
+    			actionUrl = $(this).data('actionUrl');
+    	
+	    	$('.modal').modal({ 
+	    		backdrop: 'static', 
+	    		keyboard: false 
+	    	});
 
-	<script>
-		$(document).ready(function() {
-
-			fb = new Formbuilder({
-		        selector: '.fb-main',
-		        bootstrapData: [
-		          {
-		            "label": "Do you have a website?",
-		            "field_type": "website",
-		            "required": false,
-		            "field_options": {},
-		            "cid": "c1"
-		          },
-		          {
-		            "label": "Please enter your clearance number",
-		            "field_type": "text",
-		            "required": true,
-		            "field_options": {},
-		            "cid": "c6"
-		          },
-		          {
-		            "label": "Security personnel #82?",
-		            "field_type": "radio",
-		            "required": true,
-		            "field_options": {
-		                "options": [{
-		                    "label": "Yes",
-		                    "checked": false
-		                }, {
-		                    "label": "No",
-		                    "checked": false
-		                }],
-		                "include_other_option": true
-		            },
-		            "cid": "c10"
-		          },
-		          {
-		            "label": "Medical history",
-		            "field_type": "file",
-		            "required": true,
-		            "field_options": {},
-		            "cid": "c14"
-		          }
-		        ]
-		      });
-
-		      fb.on('save', function(payload){
-		        console.log(payload);
-		      })
-
-		});
-	</script>
+	    	$(".modal .btn-danger").on('click', function() {
+	    		$.post(actionUrl, {
+	    			_method: 'DELETE',
+	    			_token: '{{ csrf_token() }}'
+	    		}, function() {
+	    			location.reload(); 
+	    		});
+	    	});
+    	});
+	});
+</script>
 @endsection
