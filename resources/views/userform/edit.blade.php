@@ -22,7 +22,7 @@
 @endsection
 
 @section('js')
-	<script src="{{ asset('/js/vendor.js') }}"></script>
+	<script src="{{ asset('/js/vendor.min.js') }}"></script>
 	<script src="{{ asset('/js/formbuilder.js') }}"></script>
 
 	<script>
