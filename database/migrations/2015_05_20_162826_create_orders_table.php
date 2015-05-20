@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserFormsTable extends Migration {
+class CreateOrdersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class CreateUserFormsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_forms', function(Blueprint $table)
+		Schema::create('orders', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->string('name');
-			$table->text('form_json');
+			$table->integer('form_id')->unsigned();
 			$table->timestamps();
 		});
 	}
@@ -29,7 +28,7 @@ class CreateUserFormsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_forms');
+		Schema::drop('orders');
 	}
 
 }

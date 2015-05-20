@@ -44,7 +44,7 @@
 				<div class="title">Cool App</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 				<div style="margin: 40px;">
-					<button type="submit" class="btn btn-primary" onclick="location='{{ url('/auth/login') }}'">Get me in!</button>
+					<button type="submit" class="btn btn-primary" onclick="location='{{ url('/auth/login') }}'"><b>Get me in!</b></button>
 				</div>
 			</div>
 		</div>

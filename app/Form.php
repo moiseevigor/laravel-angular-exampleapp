@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserForm extends Model {
+class Form extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_forms';
+	protected $table = 'forms';
 
 	/**
 	 * The attributes that are mass assignable.

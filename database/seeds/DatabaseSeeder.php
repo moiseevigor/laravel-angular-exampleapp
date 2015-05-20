@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Role;
 use App\User;
+use App\Form;
 
 class DatabaseSeeder extends Seeder {
 
@@ -18,7 +19,9 @@ class DatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		$this->call('RoleTableSeeder');
-		$this->call('UserTableSeeder');
+        $this->call('UserTableSeeder');
+        $this->call('CapTableSeeder');
+
 	}
 
 }
@@ -37,11 +40,6 @@ class RoleTableSeeder extends Seeder {
         Role::create(array(
             'id' => 2,
             'name' => 'Consumer',
-            ));
-
-        Role::create(array(
-            'id' => 3,
-            'name' => 'Guest',
             ));
 
     }
@@ -67,6 +65,18 @@ class UserTableSeeder extends Seeder {
         	'password' => Hash::make('123456'),
         	'role_id' => 2
         	));
+    }
+
+}
+
+class CapTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('caps')->delete();
+
+        $sql = file_get_contents("database/seeds/cap.sql");
+        DB::statement($sql);
     }
 
 }

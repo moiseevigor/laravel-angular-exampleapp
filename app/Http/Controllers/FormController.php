@@ -6,13 +6,13 @@ use Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\UpdateUserFormRequest;
-use App\Http\Requests\StoreUserFormRequest;
+use App\Http\Requests\UpdateFormRequest;
+use App\Http\Requests\StoreFormRequest;
 use App\Role;
 use App\User;
-use App\UserForm;
+use App\Form;
 
-class UserFormController extends Controller {
+class FormController extends Controller {
 
 	/**
 	 * Create a new controller instance.
@@ -31,8 +31,8 @@ class UserFormController extends Controller {
 	 */
 	public function index()
 	{
-		return view('userform.index', array(
-			'user_form' => UserForm::all()
+		return view('form.index', array(
+			'form' => Form::all()
 			));
 	}
 
@@ -43,7 +43,7 @@ class UserFormController extends Controller {
 	 */
 	public function create()
 	{
-		return view('userform.create');
+		return view('form.create');
 	}
 
 	/**
@@ -51,14 +51,14 @@ class UserFormController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(StoreUserFormRequest $requests)
+	public function store(StoreFormRequest $requests)
 	{
-		$userFormData = Request::all();
-		$userFormData['user_id'] = Auth::user()->id;
+		$formData = Request::all();
+		$formData['user_id'] = Auth::user()->id;
 
-		$user_form = new UserForm($userFormData);
- 		$user_form->save();
-		return redirect(action('UserFormController@edit', ['formId' => $user_form->id]));
+		$form = new Form($formData);
+ 		$form->save();
+		return redirect(action('FormController@edit', ['formId' => $form->id]));
 	}
 
 	/**
@@ -80,8 +80,8 @@ class UserFormController extends Controller {
 	 */
 	public function edit($formId)
 	{
-		return view('userform.edit', [
-			'form' => UserForm::findOrFail($formId)
+		return view('form.edit', [
+			'form' => Form::findOrFail($formId)
 			]);
 	}
 
@@ -91,14 +91,14 @@ class UserFormController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($formId, UpdateuserFormRequest $request)
+	public function update($formId, UpdateformRequest $request)
 	{
-		$userFormData = Request::all();
-		$form_json = json_decode($userFormData['form_json'], true);
+		$formData = Request::all();
+		$form_json = json_decode($formData['form_json'], true);
 
-		$userForm = UserForm::findOrFail($formId);
-		$userForm->form_json = json_encode($form_json['fields']);
-		$userForm->save();
+		$form = Form::findOrFail($formId);
+		$form->form_json = json_encode($form_json['fields']);
+		$form->save();
 	}
 
 	/**
@@ -109,8 +109,8 @@ class UserFormController extends Controller {
 	 */
 	public function destroy($formId)
 	{
-		$user_form = UserForm::findOrFail($formId);
-		$user_form->delete();
+		$form = Form::findOrFail($formId);
+		$form->delete();
 	}
 
 }

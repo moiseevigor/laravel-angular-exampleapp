@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class UpdateUserFormRequest extends Request {
+class UpdateFormRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.

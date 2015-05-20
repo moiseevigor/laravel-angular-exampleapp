@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class StoreUserFormRequest extends Request {
+class StoreFormRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StoreUserFormRequest extends Request {
 	public function rules()
 	{
 		return [
-			'name' => 'required|unique:user_forms'
+			'name' => 'required|unique:forms'
 		];
 	}
 
