@@ -15,6 +15,12 @@ class CreateFormFieldsTable extends Migration {
 		Schema::create('form_fields', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('form_id')->unsigned();
+			$table->string('label');
+			$table->string('field_type');
+			$table->string('required');
+			$table->text('field_options');
+			$table->string('cid');
 			$table->timestamps();
 		});
 	}

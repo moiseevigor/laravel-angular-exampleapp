@@ -11,6 +11,7 @@ use App\Http\Requests\StoreFormRequest;
 use App\Role;
 use App\User;
 use App\Form;
+use App\FormField;
 
 class FormController extends Controller {
 
@@ -99,6 +100,22 @@ class FormController extends Controller {
 		$form = Form::findOrFail($formId);
 		$form->form_json = json_encode($form_json['fields']);
 		$form->save();
+
+		FormField::where('form_id', '=', $form->id)->delete();
+
+		$formFieldData = $form_json['fields'];
+
+		foreach ($form_json['fields'] as $key => $field) {
+			$formField = new FormField();
+			$formField->form_id = $form->id;
+			$formField->label = $field['label'];
+			$formField->field_type = $field['field_type'];
+			$formField->required = $field['required'];
+			$formField->field_options = json_encode($field['field_options']);
+			$formField->cid = $field['cid'];
+			$formField->save();
+		}
+
 	}
 
 	/**
