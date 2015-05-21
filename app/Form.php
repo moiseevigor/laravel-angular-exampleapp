@@ -23,4 +23,9 @@ class Form extends Model {
         return $this->belongsTo('App\User');
     }
 
+    public function form_field()
+    {
+        return $this->hasMany('App\FormField');
+    }
+
 }

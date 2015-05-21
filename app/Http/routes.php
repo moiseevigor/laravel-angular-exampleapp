@@ -15,20 +15,26 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::get('user', 'UserController@index');
+Route::get('users', 'UserController@index');
 Route::get('user/create', 'UserController@create');
 Route::post('user/store', 'UserController@store');
 Route::post('user/{userId}', 'UserController@update');
 Route::get('user/{userId}/edit', 'UserController@edit');
 Route::delete('user/{userId}', 'UserController@destroy');
 
-Route::get('form', 'FormController@index');
+Route::get('forms', 'FormController@index');
 Route::get('form/create', 'FormController@create');
 Route::post('form/store', 'FormController@store');
 Route::post('form/{formId}', 'FormController@update');
 Route::get('form/{formId}/edit', 'FormController@edit');
 Route::delete('form/{formId}', 'FormController@destroy');
 
+Route::get('orders', 'OrderController@index');
+Route::get('form/{formId}/order/create', 'OrderController@create');
+Route::post('form/{formId}/order/store', 'OrderController@store');
+Route::post('form/{formId}/order/{orderId}', 'OrderController@update');
+Route::get('form/{formId}/order/{orderId}/edit', 'OrderController@edit');
+Route::delete('form/{formId}/order/{orderId}', 'OrderController@destroy');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

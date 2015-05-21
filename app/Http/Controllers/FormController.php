@@ -33,7 +33,7 @@ class FormController extends Controller {
 	public function index()
 	{
 		return view('form.index', array(
-			'form' => Form::all()
+			'forms' => Form::all()
 			));
 	}
 
@@ -60,17 +60,6 @@ class FormController extends Controller {
 		$form = new Form($formData);
  		$form->save();
 		return redirect(action('FormController@edit', ['formId' => $form->id]));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
 	}
 
 	/**
