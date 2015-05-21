@@ -15,10 +15,15 @@ class CreateFormsTable extends Migration {
 		Schema::create('forms', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->index();
 			$table->string('name');
 			$table->text('form_json');
 			$table->timestamps();
+
+			$table->foreign('user_id')
+				->references('id')->on('users')
+				->onUpdate('cascade')
+				->onDelete('cascade');
 		});
 	}
 

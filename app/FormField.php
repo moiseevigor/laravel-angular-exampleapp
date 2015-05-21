@@ -23,5 +23,4 @@ class FormField extends Model {
         return $this->belongsTo('App\Form');
     }
 
-
 }

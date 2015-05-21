@@ -44,7 +44,9 @@ class OrderController extends Controller {
 	public function create($formId)
 	{
 		$form = Form::findOrFail($formId);
-		$fields = $form->form_field;
+		$fields = $form->form_field->sortBy(function($field) {
+		    return $field->order;
+		});
 		$fields = $this->get_fields_html($fields);
 
 		return view('order.create', array(
@@ -109,9 +111,18 @@ class OrderController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($formId)
 	{
-		//
+		$order = new Order(array(
+			'user_id' => Auth::user()->id,
+			'form_id' => $formId
+			));
+ 		$order->save();
+
+		$orderFieldsData = Request::all();
+		
+
+		return redirect(action('OrderController@index'));
 	}
 
 	/**

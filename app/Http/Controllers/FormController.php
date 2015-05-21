@@ -97,11 +97,12 @@ class FormController extends Controller {
 		foreach ($form_json['fields'] as $key => $field) {
 			$formField = new FormField();
 			$formField->form_id = $form->id;
+			$formField->cid = $field['cid'];
+			$formField->order = $key;
 			$formField->label = $field['label'];
 			$formField->field_type = $field['field_type'];
 			$formField->required = $field['required'];
 			$formField->field_options = json_encode($field['field_options']);
-			$formField->cid = $field['cid'];
 			$formField->save();
 		}
 
