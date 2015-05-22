@@ -45,7 +45,7 @@ class OrderController extends Controller {
 	{
 		$form = Form::findOrFail($formId);
 		$fields = $form->form_field->sortBy(function($field) {
-		    return $field->order;
+			return $field->order;
 		});
 		$fields = $this->get_fields_html($fields);
 
@@ -63,24 +63,33 @@ class OrderController extends Controller {
 	public function get_fields_html($fields)
 	{
 		foreach ($fields as $key => $field) {
+			$id = $field->form_id . '-' . $field->order . '-' . $field->cid;
+
 			$fields[$key]['html'] = '';
 			$options = json_decode($field['field_options']);
 
 			switch($field['field_type']) {
 				case 'text':
 					$fields[$key]['html'] = 
-						"<input name='{$field['id']}' type='text' class='form-control rf-size-{$options->size}'/>";
+						"<input name='{$id}' type='text' class='form-control rf-size-{$options->size}'/>";
 				break;
 
 				case 'radio':
 					foreach ($options->options as $option) {
 						$fields[$key]['html'] .= 
-							"<input name='{$field['id']}' type='radio' class='' />{$option->label}&nbsp;&nbsp;";
+						 "<div class='col-lg-5' style='padding-left: 0;'>
+							<div class='input-group'>
+							  <span class='input-group-addon'>
+								<input name='{$id}' type='radio' aria-label='{$option->label}'>
+							  </span>
+							  <input type='text' class='form-control' value='{$option->label}' onkeypress='return false;'>
+							</div>
+						  </div>";
 					}
 				break;
 
 				case 'dropdown':
-					$fields[$key]['html'] .= "<select name='{$field['id']}' class='form-control'>";
+					$fields[$key]['html'] .= "<select name='{$id}' class='form-control'>";
 					foreach ($options->options as $option) {
 						$fields[$key]['html'] .= 
 							"<option value='{$option->label}'>{$option->label}</option>";
@@ -90,15 +99,32 @@ class OrderController extends Controller {
 
 				case 'price':
 					$fields[$key]['html'] = 
-						"<input name='{$field['id']}' type='text' class='form-control rf-size-small'/>";
+						"<input name='{$id}' type='text' class='form-control rf-size-small'/>";
 				break;
 
-				case 'address':
-					//<input type='text' />\n    <label>Address</label>\n  </span>\n</div>\n\n<div class='input-line'>\n  <span class='city'>\n    <input type='text' />\n    <label>City</label>\n  </span>\n\n  <span class='state'>\n    <input type='text' />\n    <label>State / Province / Region</label>\n  </span>\n</div>\n\n<div class='input-line'>\n  <span class='zip'>\n    <input type='text' />\n    <label>Zipcode</label>\n  </span>\n\n  <span class='country'>\n    <select><option>Italy</option></select>\n    <label>Country</label>\n  </span>\n</div>",
-					$fields[$key]['html'] = 
-						"<input name='{$field['id']}' type='text' class='form-control rf-size-small'/>";
+				case 'cap':
+					$fields[$key]['html'] .= 
+						"<input id='{$id}' name='{$id}' type='text' data-provide='typeahead' class='form-control cap' />";
 				break;
 
+				case 'checkboxes':
+					foreach ($options->options as $option) {
+						$fields[$key]['html'] .= 
+						 "<div class='col-lg-5' style='padding-left: 0;'>
+							<div class='input-group'>
+							  <span class='input-group-addon'>
+								<input name='{$id}' type='checkbox' aria-label='{$option->label}'>
+							  </span>
+							  <input type='text' class='form-control' value='{$option->label}' onkeypress='return false;'>
+							</div>
+						  </div>";
+					}
+				break;
+
+				case 'paragraph':
+						$fields[$key]['html'] .= 
+						 "<textarea name='{$id}' class='form-control'></textarea>";
+				break;
 
 			}
 		}
@@ -117,7 +143,7 @@ class OrderController extends Controller {
 			'user_id' => Auth::user()->id,
 			'form_id' => $formId
 			));
- 		$order->save();
+		$order->save();
 
 		$orderFieldsData = Request::all();
 		

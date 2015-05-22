@@ -49,3 +49,20 @@
 	</div>
 </div>
 @endsection
+
+
+@section('js')
+	<script type='text/javascript'>
+	// https://github.com/biggora/bootstrap-ajax-typeahead#ajax
+	$(document).ready(function() {
+		$('.cap').typeahead({
+			ajax: {
+				url: '/cap/search',
+				displayField: "full_name",
+				triggerLength: 1,
+        		method: "get"
+        	}
+		});
+	})
+	</script>
+@endsection

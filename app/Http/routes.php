@@ -36,6 +36,8 @@ Route::post('form/{formId}/order/{orderId}', 'OrderController@update');
 Route::get('form/{formId}/order/{orderId}/edit', 'OrderController@edit');
 Route::delete('form/{formId}/order/{orderId}', 'OrderController@destroy');
 
+Route::get('cap/search', 'CapController@search');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
