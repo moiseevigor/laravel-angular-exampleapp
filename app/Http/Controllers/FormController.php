@@ -1,17 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use Auth;
-use Request;
+use Auth, Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Http\Requests\UpdateFormRequest;
 use App\Http\Requests\StoreFormRequest;
-use App\Role;
-use App\User;
-use App\Form;
-use App\FormField;
+use App\Role, App\User, App\Form, App\FormField;
 
 class FormController extends Controller {
 

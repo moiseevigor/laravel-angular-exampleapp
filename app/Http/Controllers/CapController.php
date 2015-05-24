@@ -4,7 +4,6 @@ use Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Cap;
 
 class CapController extends Controller {

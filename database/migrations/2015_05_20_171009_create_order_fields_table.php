@@ -15,7 +15,19 @@ class CreateOrderFieldsTable extends Migration {
 		Schema::create('order_fields', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('order_id')->unsigned()->index();
+			$table->string('label');
+			$table->string('field_type');
+			$table->boolean('required');
+			$table->text('field_options');
+			$table->text('value');
 			$table->timestamps();
+
+			$table->foreign('order_id')
+				->references('id')->on('orders')
+				->onUpdate('cascade')
+				->onDelete('cascade');
+
 		});
 	}
 

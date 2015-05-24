@@ -23,4 +23,11 @@ class FormField extends Model {
         return $this->belongsTo('App\Form');
     }
 
+	public static function findByPk($form_id, $order, $cid)
+	{
+		return FormField::where('form_id', '=', $form_id)
+			->where('order', '=', $order)
+			->where('cid', '=', $cid)
+			->first();
+	}
 }

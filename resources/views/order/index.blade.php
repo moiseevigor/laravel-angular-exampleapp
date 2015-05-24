@@ -10,14 +10,15 @@
 					{{ $form->name }}
 				</div>
 				<div class="panel-body">
-					<div style="float: right;">
+					<div>
 						<button type="button" class="btn btn-success" onclick="location='{{ action('OrderController@create', ['formId' => $form->id]) }}'">Create order</button>
 					</div>
+					<br />
 					<table class="table table-bordered table-striped">
 						@forelse ($orders as $order)
 							@if( $order->form_id == $form->id)
 							<tr>
-								<td>{{ $order->name }}</td>
+								<td>Order N{{ $order->id }}</td>
 								<td>{{ $order->user->name }}</td>
 								<td width="200" align="center">
 									<button type="button" class="btn btn-primary" onclick="location='{{ action('OrderController@edit', ['formId' => $form->id, 'orderId' => $order->id]) }}'">Edit</button>

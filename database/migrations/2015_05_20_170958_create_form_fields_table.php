@@ -19,7 +19,7 @@ class CreateFormFieldsTable extends Migration {
 			$table->integer('cid')->unsigned();
 			$table->string('label');
 			$table->string('field_type');
-			$table->string('required');
+			$table->boolean('required');
 			$table->text('field_options');
 			$table->timestamps();
 
