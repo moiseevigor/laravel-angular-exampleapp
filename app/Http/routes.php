@@ -11,6 +11,9 @@
 |
 */
 
+Entrust::routeNeedsRole('users/*', 'admin', Redirect::to('/'));
+//Entrust::routeNeedsPermission('users/*', array('create-user', 'edit-user'));
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');

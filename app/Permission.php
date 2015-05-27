@@ -1,16 +1,16 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Zizaco\Entrust\EntrustRole;
+use Zizaco\Entrust\EntrustPermission;
 
-class Role extends EntrustRole {
+class Permission extends EntrustPermission {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'roles';
+	protected $table = 'permissions';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -20,5 +20,3 @@ class Role extends EntrustRole {
 	protected $fillable = ['name'];
 
 }
-
-

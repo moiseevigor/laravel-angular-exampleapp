@@ -16,7 +16,7 @@
 							<tr>
 								<td>{{ $user->name }}</td>
 								<td>{{ $user->email }}</td>
-								<td>{{ $user->role->name }}</td>
+								<td>{* $user->role->name *}</td>
 								<td width="200" align="center">
 									<button type="button" class="btn btn-primary" onclick="location='{{ action('UserController@edit', ['userId' => $user->id]) }}'">Edit</button>
 									<button type="button" class="btn btn-danger remove-user" data-user-id="{{ $user->id }}" data-action-url="{{ action('UserController@destroy', ['userId' => $user->id]) }}">Remove</button>
