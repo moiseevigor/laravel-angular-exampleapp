@@ -27,7 +27,7 @@
 							<div class="col-md-6">
 								<select name="role_id" class="form-control">
 								@foreach (\App\Role::all() as $role)
-									<option value="{{ $role->id }}" @if($user->role_id == $role->id)selected @endif @if($role->id == 1)  @endif>{{ $role->display_name }}</option>
+									<option value="{{ $role->id }}" @if($user->role_id == $role->id)selected @endif @if($role->id == 1) disabled @endif>{{ $role->display_name }}</option>
 								@endforeach
 								</select>
 							</div>

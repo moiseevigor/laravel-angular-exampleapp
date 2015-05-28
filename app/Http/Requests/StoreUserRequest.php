@@ -22,10 +22,10 @@ class StoreUserRequest extends Request {
 	public function rules()
 	{
 		return [
-	        'role_id' => 'required',
-	        'name' => 'required',
-	        'password' => 'required|min:6',
-	        'email' => 'required|email|unique:users'
+			'role_id' => 'required',
+			'name' => 'required',
+			'password' => 'required|min:6',
+			'email' => 'required|email|unique:users'
 		];
 	}
 

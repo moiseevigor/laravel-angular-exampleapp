@@ -22,10 +22,10 @@ class UpdateUserRequest extends Request {
 	public function rules()
 	{
 		return [
-	        'role_id' => 'required',
-	        'name' => 'required',
-	        'password' => 'required|min:6',
-	        'email' => 'required|email|unique:users,email,' . Request::get('userId')
+			'role_id' => 'required',
+			'name' => 'required',
+			'password' => 'required|min:6',
+			'email' => 'required|email|unique:users,email,' . Request::get('userId')
 		];
 	}
 
