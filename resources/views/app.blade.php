@@ -37,9 +37,15 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				@if (!Auth::guest())
 				<ul class="nav navbar-nav">
-					<li class="{{ Request::is('user*') ? 'active' : '' }}"><a href="{{ url('/users') }}">Users</a></li>
-					<li class="{{ Request::is('form*') && !Request::is('*order*')  ? 'active' : '' }}"><a href="{{ url('/forms') }}">Forms</a></li>
-					<li class="{{ Request::is('*order*') ? 'active' : '' }}"><a href="{{ url('/orders') }}">Orders</a></li>
+					@if (Auth::user()->can('index-user'))
+						<li class="{{ Request::is('user*') ? 'active' : '' }}"><a href="{{ url('/users') }}">Users</a></li>
+					@endif
+					@if (Auth::user()->can('index-form'))
+						<li class="{{ Request::is('form*') && !Request::is('*order*')  ? 'active' : '' }}"><a href="{{ url('/forms') }}">Forms</a></li>
+					@endif
+					@if (Auth::user()->can('index-order'))
+						<li class="{{ Request::is('*order*') ? 'active' : '' }}"><a href="{{ url('/orders') }}">Orders</a></li>
+					@endif
 				</ul>
 				@endif
 
