@@ -15,7 +15,8 @@ class PermissionController extends Controller {
 	 */
 	public function index()
 	{
-		return view('permission');
+		return view('permission', array(
+			'errors' => array('Permission error')));
 	}
 
 }

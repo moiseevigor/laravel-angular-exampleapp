@@ -45,5 +45,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Entrust::routeNeedsRole('users', array('admin'), Redirect::to('/permission'));
-//Entrust::routeNeedsPermission('users', array('create-user', 'edit-user'));
+Entrust::routeNeedsRole('user*', array('admin'), Redirect::to('/permission'));
+Entrust::routeNeedsRole('form*', array('admin', 'consumer'), Redirect::to('/permission'), false);
+Entrust::routeNeedsRole('order*', array('admin', 'consumer'), Redirect::to('/permission'), false);

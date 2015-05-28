@@ -75,11 +75,16 @@ class UserController extends Controller {
 		$userData = Request::all();
 
 		$user = User::findOrFail($userId);
-		$user->role_id = $userData['role_id'];
 		$user->name = $userData['name'];
 		$user->email = $userData['email'];
 		$user->password = Hash::make($userData['password']);
 		$user->save();
+
+		if($userData['role_id'] !== $user->roles()->first()->id)
+		{
+			$user->roles()->detach($user->roles()->first()->id);
+			$user->roles()->attach($userData['role_id']);
+		}
 
 		return redirect(action('UserController@index'));
 	}
@@ -92,7 +97,10 @@ class UserController extends Controller {
 	public function store(StoreUserRequest $request)
 	{
 		$user = new User(Request::all());
- 		$user->save();
+		$user->save();
+
+		$user->roles()->attach($request['role_id']);
+
 		return redirect(action('UserController@index'));
 	}
 
