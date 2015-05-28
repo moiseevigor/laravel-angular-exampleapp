@@ -11,8 +11,6 @@
 |
 */
 
-Entrust::routeNeedsRole('users/*', 'admin', Redirect::to('/'));
-//Entrust::routeNeedsPermission('users/*', array('create-user', 'edit-user'));
 
 Route::get('/', 'WelcomeController@index');
 
@@ -40,8 +38,12 @@ Route::get('form/{formId}/order/{orderId}/edit', 'OrderController@edit');
 Route::delete('form/{formId}/order/{orderId}', 'OrderController@destroy');
 
 Route::get('cap/search', 'CapController@search');
+Route::get('permission', 'PermissionController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+Entrust::routeNeedsRole('users', array('admin'), Redirect::to('/permission'));
+//Entrust::routeNeedsPermission('users', array('create-user', 'edit-user'));
