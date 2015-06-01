@@ -3,6 +3,7 @@ php:
   - 5.6
 sudo: false  
 before_script:  
+  - mysql -e 'create database forge;'
   - mv .env.travis .env
   - chmod -R 777 storage
   - touch storage/acceptance.sqlite
