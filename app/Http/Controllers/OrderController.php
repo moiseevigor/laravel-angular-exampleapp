@@ -241,8 +241,7 @@ class OrderController extends Controller {
 		$orderFieldsData = Request::all();
 		unset($orderFieldsData['_token']);
 
-		foreach ($orderFieldsData as $id => $field_value)
-		{
+		foreach ($orderFieldsData as $id => $field_value) {
 			$orderField = OrderField::findOrFail($id);
 	
 			if(is_string($field_value))

@@ -80,8 +80,7 @@ class UserController extends Controller {
 		$user->password = Hash::make($userData['password']);
 		$user->save();
 
-		if($userData['role_id'] !== $user->roles()->first()->id)
-		{
+		if($userData['role_id'] !== $user->roles()->first()->id) {
 			$user->roles()->detach($user->roles()->first()->id);
 			$user->roles()->attach($userData['role_id']);
 		}
